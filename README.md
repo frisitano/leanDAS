@@ -1,6 +1,6 @@
 # leanDAS
 
-A minimal Rust implementation of the **STARS** construction — a Reed–Solomon proximity-test-free DAS scheme that runs both the random linear combination (RLC) across blobs **and** FRI folding *inside* the leanVM trace, so the ZKVM verifies every fold step rather than spot-checking. This upgrades FRI's proximity guarantee to **exact** RS membership.
+A minimal Rust implementation of the **STARS** construction — a Reed–Solomon DAS scheme that runs both the random linear combination (RLC) across blobs **and** FRI folding *inside* the leanVM trace, so the ZKVM verifies every fold step rather than spot-checking. This upgrades FRI's proximity guarantee to **exact** RS membership.
 
 For the construction itself, the threat model, and the soundness argument, see [`paper/short-note.md`](paper/short-note.md).
 
