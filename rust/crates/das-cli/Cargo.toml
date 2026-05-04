@@ -1,0 +1,22 @@
+[package]
+name = "das-cli"
+version.workspace = true
+edition.workspace = true
+
+[[bin]]
+name = "leandas"
+path = "src/main.rs"
+
+[[bin]]
+name = "leandas-bench"
+path = "src/bench.rs"
+
+[dependencies]
+das-core = { workspace = true }
+das-prover = { workspace = true }
+das-verifier = { workspace = true }
+backend = { workspace = true }
+lean_vm = { workspace = true }
+lean_prover = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }

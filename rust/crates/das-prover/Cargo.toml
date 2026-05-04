@@ -1,0 +1,17 @@
+[package]
+name = "das-prover"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+das-core = { workspace = true }
+backend = { workspace = true }
+utils = { workspace = true }
+lean_vm = { workspace = true }
+lean_prover = { workspace = true }
+lean_compiler = { workspace = true }
+rec_aggregation = { workspace = true }
+sub_protocols = { workspace = true }
+air = { workspace = true }
+rayon = { workspace = true }
+tracing = { workspace = true }

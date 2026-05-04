@@ -1,0 +1,12 @@
+[package]
+name = "das-verifier"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+das-core = { workspace = true }
+das-prover = { workspace = true }
+backend = { workspace = true }
+utils = { workspace = true }
+tracing = { workspace = true }
+lean_vm = { workspace = true }

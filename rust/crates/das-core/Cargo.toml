@@ -1,0 +1,8 @@
+[package]
+name = "das-core"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+backend = { workspace = true }
+utils = { workspace = true }

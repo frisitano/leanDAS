@@ -1,0 +1,8 @@
+# Rust
+rust/target/
+
+# Claude Code
+.claude/
+
+# Gauss
+.gauss/
