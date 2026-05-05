@@ -204,6 +204,8 @@ For Ethereum's target of $m = 128$ blobs at $n = 4096$: a single batch of 128 co
 
 ### GPU Acceleration
 
+> **Note:** The numbers in this section are speculative projections, not measured. They extrapolate from CPU benchmarks using a conservative 15× speedup factor; actual GPU performance has not been benchmarked.
+
 GPU-accelerated STARK provers (NTT, Poseidon2 hashing, FRI commitment) typically achieve 10-20x speedup over single-core CPU. Conservative estimate: **15x**.
 
 | Configuration | CPU (1 core) | GPU (est. 15x) |
