@@ -145,7 +145,7 @@ leanVM's execution model has a key constraint: each precompile trace table must 
 
 ## 6. Benchmarks
 
-All benchmarks run on a single CPU core (Apple M1 Max), single-threaded. Proof generation uses leanVM's STARK prover with Poseidon2 commitments. Degree $d$ = half-rate ($n/2$) unless noted.
+All benchmarks run on an Apple M2 Max. Proof generation uses leanVM's STARK prover with Poseidon2 commitments. Degree $d$ = half-rate ($n/2$) unless noted.
 
 ### Codeword Length Scaling (single codeword)
 
@@ -172,7 +172,7 @@ All benchmarks run on a single CPU core (Apple M1 Max), single-threaded. Proof g
 
 At $m = 240$ codewords of length 4096 with half-rate encoding ($d = 2048$):
 
-- **Prove time:** 5.28 s (single CPU core)
+- **Prove time:** 5.28 s
 - **Message throughput:** 364 KB/s (728 KB/s raw codeword data)
 - **Proof size:** 356 KB (~1.2K field elements)
 - **Trace utilization:** Extension-op trace at 92% of $2^{19}$ capacity; execution trace at $2^{20}$
