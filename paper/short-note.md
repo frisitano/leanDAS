@@ -25,7 +25,7 @@ Existing DAS constructions fall short of achieving all binding properties uncond
 
 - **FRIDA** [ePrint 2024/248] eliminates the trusted setup and is post-quantum. However, FRI is inherently a *proximity* test — the scheme achieves only *proximity-binding* (opened values are close to a codeword), not exact code-binding. Reconstruction-binding holds only approximately.
 
-- **ZODA** [ePrint 2025/034] can achieve exact code-binding, but only *conditionally* — an honest watcher must submit a fraud proof if the block producer cheats. The binding properties hold under a liveness assumption.
+- **ZODA** [ePrint 2025/034] achieves exact code-binding via a structural modification to the encoding itself: for *tensor codes*, sampled rows and columns of the modified encoding become proofs of their own correctness, with no separate proof object beyond the encoding. The construction is specific to the tensor-code setting; per-sample bandwidth is $\Theta(n + 2m)$ (a full row plus a full column).
 
 ## 2. The STARS Construction
 
@@ -116,8 +116,8 @@ If both checks pass, the verifier is guaranteed that the opened symbols are cons
 | Property | STARS | KZG-DAS | FRIDA | ZODA |
 |---|---|---|---|---|
 | Position-binding | Yes | Yes | Yes | Yes |
-| Code-binding | Exact | Exact | Proximity | Conditional |
-| Reconstruction-binding | Yes | Yes | Approximate | Conditional |
+| Code-binding | Exact | Exact | Proximity | Exact (tensor) |
+| Reconstruction-binding | Yes | Yes | Approximate | Yes (tensor) |
 | Post-quantum | Yes | No | Yes | Yes |
 | Trusted setup | No | Yes (SRS) | No | No |
 
