@@ -47,18 +47,18 @@ Each $b_i$ is committed via an erasure-code commitment scheme, yielding commitme
 
 The RLC challenge $r_i \in \mathbb{E}$ is derived from the commitment: $r_i = H(\mathrm{com}_i)$. Because each $r_i$ depends only on its own commitment, provers can pipeline with blob arrival. The combined codeword is:
 
-$$c^*[j] = \sum_{i=1}^{m} r_i \cdot b_i[j]$$
+$$c^\star[j] = \sum_{i=1}^{m} r_i \cdot b_i[j]$$
 
-where each $b_i$ is viewed in $\mathbb{E}$ via the canonical embedding $\mathbb{F} \hookrightarrow \mathbb{E}$. If every $b_i$ is a valid RS codeword, then $c^*$ is also a valid RS codeword (since RS is a linear subspace).
+where each $b_i$ is viewed in $\mathbb{E}$ via the canonical embedding $\mathbb{F} \hookrightarrow \mathbb{E}$. If every $b_i$ is a valid RS codeword, then $c^\star$ is also a valid RS codeword (since RS is a linear subspace).
 
 ### Step 3: Proving (RLC + FRI, Parallelizable)
 
 The $m$ input codewords are divided into $B$ batches. Each prover independently performs both RLC and FRI folding in a single ZKVM run:
 
 1. Takes its assigned codewords and challenges
-2. Computes the RLC: $c_k^* = \sum_{j} r_{i_j} \cdot b_{i_j}$
-3. Performs FRI folding on $c_k^*$ inside the ZKVM — $\log_2(k)$ rounds of degree halving, operating entirely on evaluation vectors (no polynomial interpolation or evaluation). The even/odd parts are extracted by pairing evaluations at $\omega$ and $-\omega$, and folded via a linear combination.
-4. Produces a single STARK proof certifying both RLC correctness and **exact RS membership** of $c_k^*$
+2. Computes the RLC: $c_k^\star = \sum_{j} r_{i_j} \cdot b_{i_j}$
+3. Performs FRI folding on $c_k^\star$ inside the ZKVM — $\log_2(k)$ rounds of degree halving, operating entirely on evaluation vectors (no polynomial interpolation or evaluation). The even/odd parts are extracted by pairing evaluations at $\omega$ and $-\omega$, and folded via a linear combination.
+4. Produces a single STARK proof certifying both RLC correctness and **exact RS membership** of $c_k^\star$
 
 All $B$ provers run in parallel. A prover can start as soon as all blobs in its batch are committed — without waiting for other batches.
 
@@ -69,7 +69,7 @@ Because the ZKVM verifies *all* folding steps (not a probabilistic spot-check), 
 The proofs from Step 3 are recursively aggregated into a single proof. Each aggregation step verifies two child proofs inside a ZKVM and produces a new proof:
 
 - **Layer 0:** $B$ independent proofs (from Step 3), each certifying RS membership
-- **Layer $\ell$:** Each node verifies two layer-$(\ell-1)$ proofs
+- **Layer $\ell$:** Each node verifies two proofs from layer $\ell - 1$
 - **Root:** A single proof certifying all $m$ input codewords are valid RS codewords
 
 Aggregation depth is $O(\log B)$, and all nodes at the same layer are independent.
@@ -78,12 +78,12 @@ Aggregation depth is $O(\log B)$, and all nodes at the same layer are independen
 
 **Proof.** Each prover's ZKVM circuit performs two stages:
 
-1. **RLC:** Each codeword (a row of evaluations) is scaled by its challenge $r_i = H(\mathrm{com}_i)$ and summed element-wise into the combined codeword $c_k^*$.
-2. **FRI Folding:** The combined evaluation vector is repeatedly halved — each round splits into even/odd parts and folds — until a single constant remains. If the result is constant, $c_k^*$ has degree $< d$ and is a valid RS codeword. All folding is field arithmetic on evaluation vectors; no polynomial interpolation or evaluation is performed.
+1. **RLC:** Each codeword (a row of evaluations) is scaled by its challenge $r_i = H(\mathrm{com}_i)$ and summed element-wise into the combined codeword $c_k^\star$.
+2. **FRI Folding:** The combined evaluation vector is repeatedly halved — each round splits into even/odd parts and folds — until a single constant remains. If the result is constant, $c_k^\star$ has degree $< d$ and is a valid RS codeword. All folding is field arithmetic on evaluation vectors; no polynomial interpolation or evaluation is performed.
 
-The STARK proof $\pi_k$ has the commitments ($\mathrm{com}_{i_1}, \ldots, \mathrm{com}_{i_s}$) as public inputs and certifies both RLC correctness and exact RS membership.
+The STARK proof $\pi_k$ has the commitments to all codewords in batch $k$ as public inputs, and certifies both RLC correctness and exact RS membership.
 
-**Aggregated proof.** Each aggregation circuit takes two child proofs ($\pi_L$, $\pi_R$) as private witness and their public inputs (the child commitments) as its own public inputs. The circuit verifies both child proofs; if both verify, the aggregator produces a new proof whose public inputs are the union of the children's commitments. At the root, the final proof $\pi^*$ has all $m$ commitments $\mathrm{com}_1, \ldots, \mathrm{com}_m$ as public inputs, certifying that every committed codeword is a valid RS codeword.
+**Aggregated proof.** Each aggregation circuit takes two child proofs ($\pi_L$, $\pi_R$) as private witness and their public inputs (the child commitments) as its own public inputs. The circuit verifies both child proofs; if both verify, the aggregator produces a new proof whose public inputs are the union of the children's commitments. At the root, the final proof $\pi^\star$ has all $m$ commitments $\mathrm{com}_1, \ldots, \mathrm{com}_m$ as public inputs, certifying that every committed codeword is a valid RS codeword.
 
 ### Step 5: DAS Verification
 
@@ -99,7 +99,7 @@ If both checks pass, the verifier is guaranteed that the opened symbols are cons
 
 ## 3. Why It's Sound
 
-**Schwartz-Zippel for RLC.** Each prover computes an RLC $c_k^*$ and proves it is a valid RS codeword. Let $m_k$ denote the number of codewords in batch $k$. If any $b_i$ in batch $k$ is not in the RS code, then $c_k^*$ is not RS with probability at least $1 - m_k/|\mathbb{E}|$. A union bound over all $B$ batches gives an overall failure probability of at most $m/|\mathbb{E}|$.
+**Schwartz-Zippel for RLC.** Each prover computes an RLC $c_k^\star$ and proves it is a valid RS codeword. Let $m_k$ denote the number of codewords in batch $k$. If any $b_i$ in batch $k$ is not in the RS code, then $c_k^\star$ is not RS with probability at least $1 - m_k/|\mathbb{E}|$. A union bound over all $B$ batches gives an overall failure probability of at most $m/|\mathbb{E}|$.
 
 **Binding hierarchy.** We frame security through the binding properties of [ePrint 2023/1079]:
 
@@ -139,7 +139,7 @@ The key tradeoff is proof generation cost: STARS requires ZKVM proof generation 
 The leanDAS circuit performs all computation using leanVM's precompiled operations, which are evaluated in dedicated precompile traces with simpler constraints than the main execution trace. The circuit has three phases:
 
 1. **Commitment verification:** Hash all batch commitments into a chain hash (public input) and derive RLC challenges from commitment digests.
-2. **RLC accumulation:** For each codeword position $j$, compute $c^*[j] = \sum_i r_i \cdot b_i[j]$ via a single `dot_product_be` call over column-major data.
+2. **RLC accumulation:** For each codeword position $j$, compute $c^\star[j] = \sum_i r_i \cdot b_i[j]$ via a single `dot_product_be` call over column-major data.
 3. **FRI folding:** $\log_2(d)$ rounds of scalar butterfly operations using `add_ee`, `dot_product_be`, and `dot_product_ee` for twiddle/beta multiplication.
 
 The private witness contains three regions: (1) commitments, (2) row-major codeword evaluations (for Merkle verification), and (3) column-major codeword evaluations (for efficient RLC dot products).
