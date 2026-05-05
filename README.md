@@ -54,7 +54,7 @@ CLI flags:
 
 ## Reproduce the paper benchmark
 
-The headline number from `paper/short-note.md` § Benchmarks is **5.28 s prove time, 364 KB/s message throughput, 356 KB proof** on a Apple M2 Max, at the sweet-spot configuration `n = 4096`, `m = 240`, half-rate:
+The headline number from `paper/short-note.md` § Benchmarks is **5.28 s prove time, 364 KB/s message throughput, 356 KB proof** on an Apple M2 Max, at the sweet-spot configuration `n = 4096`, `m = 240`, half-rate:
 
 ```sh
 cargo run --release --bin leandas -- -m 240 -n 4096 --zkvm
