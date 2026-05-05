@@ -25,7 +25,7 @@ Existing DAS constructions fall short of achieving all binding properties uncond
 
 - **FRIDA** [ePrint 2024/248] eliminates the trusted setup and is post-quantum. However, FRI is inherently a *proximity* test — the scheme achieves only *proximity-binding* (opened values are close to a codeword), not exact code-binding. Reconstruction-binding holds only approximately.
 
-- **ZODA** [ePrint 2024/1773] can achieve exact code-binding, but only *conditionally* — an honest watcher must submit a fraud proof if the block producer cheats. The binding properties hold under a liveness assumption.
+- **ZODA** [ePrint 2025/034] can achieve exact code-binding, but only *conditionally* — an honest watcher must submit a fraud proof if the block producer cheats. The binding properties hold under a liveness assumption.
 
 ## 2. The STARS Construction
 
@@ -226,7 +226,7 @@ For Ethereum-scale throughput (1 GB/s), approximately **12-23 H100 GPUs** in par
 
 2. Hall-Andersen, M., Simkin, M., Wagner, B. (2024). *FRIDA: Data Availability Sampling from FRI.* IACR ePrint [2024/248](https://eprint.iacr.org/2024/248). FRI-based DAS achieving proximity-binding only.
 
-3. Evans, A., Mohnblatt, N. (2024). *ZODA: Zero-Overhead Data Availability.* IACR ePrint [2024/1773](https://eprint.iacr.org/2024/1773). Conditional code-binding via fraud proofs.
+3. Evans, A., Mohnblatt, N. (2025). *ZODA: Zero-Overhead Data Availability.* IACR ePrint [2025/034](https://eprint.iacr.org/2025/034). Conditional code-binding via fraud proofs.
 
 4. Ben-Sasson, E., Goldberg, L., Kopparty, S., Saraf, S. (2019). *DEEP-FRI: Sampling Outside the Box Improves Soundness.* IACR ePrint [2019/336](https://eprint.iacr.org/2019/336). FRI soundness analysis underpinning the proximity-test security bound.
 
