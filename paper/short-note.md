@@ -226,7 +226,7 @@ For Ethereum-scale throughput (1 GB/s), approximately **12-23 H100 GPUs** in par
 
 2. Hall-Andersen, M., Simkin, M., Wagner, B. (2024). *FRIDA: Data Availability Sampling from FRI.* IACR ePrint [2024/248](https://eprint.iacr.org/2024/248). FRI-based DAS achieving proximity-binding only.
 
-3. Evans, A., Mohnblatt, N. (2025). *ZODA: Zero-Overhead Data Availability.* IACR ePrint [2025/034](https://eprint.iacr.org/2025/034). Conditional code-binding via fraud proofs.
+3. Evans, A., Mohnblatt, N., Angeris, G. (Bain Capital Crypto, 2025). *ZODA: Zero-Overhead Data Availability.* IACR ePrint [2025/034](https://eprint.iacr.org/2025/034). Conditional code-binding via fraud proofs.
 
 4. Ben-Sasson, E., Goldberg, L., Kopparty, S., Saraf, S. (2019). *DEEP-FRI: Sampling Outside the Box Improves Soundness.* IACR ePrint [2019/336](https://eprint.iacr.org/2019/336). FRI soundness analysis underpinning the proximity-test security bound.
 
