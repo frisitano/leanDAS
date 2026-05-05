@@ -35,9 +35,9 @@ The key insight is to run both the RLC accumulation and FRI folding *inside each
 
 ### Setup
 
-Let $\mathbb{F}$ be a finite field and $\mathbb{E}/\mathbb{F}$ a field extension with $|\mathbb{E}|$ sufficiently large for the Schwartz-Zippel bound. We work with an RS code $\mathrm{RS}[\iota, k]$: polynomials of degree $< k$ evaluated over a domain $D \subset \mathbb{F}$ of size $n$.
+Let $\mathbb{F}$ be a finite field and $\mathbb{E}/\mathbb{F}$ a field extension with $|\mathbb{E}|$ sufficiently large for the Schwartz-Zippel bound. We work with an RS code $\mathrm{RS}[\iota, k]$: polynomials of degree less than $k$, evaluated over a domain $D \subset \mathbb{F}$ of size $n$.
 
-The system receives $m$ input codewords $b_1, \ldots, b_m \in \mathbb{F}^n$, each an evaluation of a degree-$< k$ polynomial.
+The system receives $m$ input codewords $b_1, \ldots, b_m \in \mathbb{F}^n$, each an evaluation of a polynomial of degree less than $k$.
 
 ### Step 1: Commit
 
@@ -79,7 +79,7 @@ Aggregation depth is $O(\log B)$, and all nodes at the same layer are independen
 **Proof.** Each prover's ZKVM circuit performs two stages:
 
 1. **RLC:** Each codeword (a row of evaluations) is scaled by its challenge $r_i = H(\mathrm{com}_i)$ and summed element-wise into the combined codeword $c_k^\star$.
-2. **FRI Folding:** The combined evaluation vector is repeatedly halved — each round splits into even/odd parts and folds — until a single constant remains. If the result is constant, $c_k^\star$ has degree $< d$ and is a valid RS codeword. All folding is field arithmetic on evaluation vectors; no polynomial interpolation or evaluation is performed.
+2. **FRI Folding:** The combined evaluation vector is repeatedly halved — each round splits into even/odd parts and folds — until a single constant remains. If the result is constant, $c_k^\star$ has degree less than $d$ and is a valid RS codeword. All folding is field arithmetic on evaluation vectors; no polynomial interpolation or evaluation is performed.
 
 The STARK proof $\pi_k$ has the commitments to all codewords in batch $k$ as public inputs, and certifies both RLC correctness and exact RS membership.
 
